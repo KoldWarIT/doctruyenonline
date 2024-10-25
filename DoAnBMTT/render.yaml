@@ -1,6 +1,19 @@
 services:
   - type: web
     name: doctruyenonline
-    env: java
-    buildCommand: "mvn clean package"
+    runtime: java8  # Hoặc java17 tùy vào phiên bản bạn muốn sử dụng
+    buildCommand: |
+      # Cài đặt Node.js nếu cần cho các phần JavaScript phía server
+      curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+      npm install  # Nếu bạn cần cài đặt dependencies Node.js
+      
+      # Cài đặt Maven
+      sudo apt-get install -y maven
+
+      # Kiểm tra phiên bản Java
+      java -version
+      
+      # Chạy lệnh build của Maven
+      mvn clean package
     startCommand: "java -jar target/*.jar"
