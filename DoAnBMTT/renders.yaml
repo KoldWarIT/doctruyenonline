@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: doctruyenonline
+    env: java
+    buildCommand: |
+      # Cài đặt Node.js nếu cần cho các phần JavaScript phía server
+      curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+      
+      # Chạy lệnh build của Maven
+      mvn clean package
+    startCommand: "java -jar target/*.jar"
